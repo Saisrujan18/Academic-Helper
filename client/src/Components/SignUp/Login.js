@@ -22,7 +22,7 @@ function Login()
 	{
 		event.preventDefault ();
 
-		axios.post ( 'http://localhost:3001/login ', {email, password})
+		axios.post ('http://localhost:3001/login ', {email, password})
 			.then(res => 
 				{
 					if (res.data.found === true) 

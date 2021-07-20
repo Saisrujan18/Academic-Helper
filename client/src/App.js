@@ -9,6 +9,7 @@ import AboutUs from "./Components/Aboutus/AboutUs";
 import Home from "./Components/Home";
 import Navbar from "./Components/Navbar/Navbar";
 import SignIn from "./Components/SignUp/SignIn";
+import NF from "./Components/404";
 
 import './App.css';
 
@@ -17,14 +18,12 @@ function App() {
       <Router>
         <PrivateRoute><Navbar/></PrivateRoute>
         <Switch>
-        
           <PrivateRoute exact path="/"><Home/></PrivateRoute>
           <PrivateRoute exact path="/view"><View/></PrivateRoute>
           <PrivateRoute exact path="/upload"><Upload/></PrivateRoute>
           <PrivateRoute exact path="/aboutus"><AboutUs/></PrivateRoute>
           <Route path="/login"><SignIn /></Route>
-          {/* <Route path="/*"><GoToHome /></Route> */}
-        
+          <Route path="/*"><NF/></Route>
         </Switch>
         {/* <PrivateRoute><Footer /></PrivateRoute> */}
       </Router>
