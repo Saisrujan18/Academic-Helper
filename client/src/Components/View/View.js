@@ -1,8 +1,12 @@
+// import r from "../";
+
+import pdf from "../View/download.pdf";
+
 function View()
 {
     return(
         <div>
-            <h1>View</h1>
+            <a href={pdf} download>download</a>
         </div>
     );
 }

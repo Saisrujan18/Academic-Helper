@@ -40,7 +40,7 @@ mongoose.connect (
     },
     () => {
         console.log ('connected to mongo_db');
-        app.listen (PORT, () => console.log (`server running`));
+        app.listen (PORT, () => console.log (`server running on ${PORT}`));
     }
 );
 
@@ -69,7 +69,7 @@ app.post ('/register', async function(req, res)
                 isAdmin: isAdmin,
                 isBlocked: false,
             });
-
+            console.log(newUser);
             await newUser
                 .save ()
                 .then (result => console.log (result))
@@ -77,7 +77,7 @@ app.post ('/register', async function(req, res)
                     console.log (err);
                     return res.send ('User Already Exists');
                 });
-            res.send("done");
+            return res.send("done");
         }
         catch(err){console.log (err);}
     }
