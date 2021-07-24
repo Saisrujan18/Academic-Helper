@@ -1,8 +1,9 @@
 /* eslint-disable no-unused-vars */
-import {useState, useEffect} from 'react';
-import './SignIn.css';
+import {useState} from 'react';
 import {Redirect} from 'react-router-dom';
 import axios from 'axios';
+
+import './SignIn.css';
 
 function Login()
 {
@@ -10,13 +11,14 @@ function Login()
 	const [password, setPassword] = useState ('');
 	const [auth, setAuth] = useState (false);
 
-
 	function handleSignInSubmit(event)
 	{
 		event.preventDefault ();
-		console.log({email,password});
+		// console.log({email,password});
 		console.log("Login clicked");
-		axios.post ('http://localhost:3001/login',{email, password})
+		
+		axios
+			.post ('http://localhost:3001/login',{email, password})
 			.then(res => 
 				{
 					console.log("contacted /login  in 3001");

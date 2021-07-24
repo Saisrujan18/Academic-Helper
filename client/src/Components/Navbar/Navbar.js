@@ -17,9 +17,8 @@ const NavBar = () => {
             <Navbar.Collapse id="responsive-navbar-nav">
             
             <Nav className="Navbar" style={{width: '85%'}}>
-                <Link to="/view">Search</Link>
+                <Link to="/search">Search</Link>
                 <Link to="/upload">Upload</Link>
-                <Link to="/aboutus">AboutUs</Link>
 
             </Nav>
             <Logout />

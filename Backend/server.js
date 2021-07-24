@@ -9,30 +9,30 @@ const cors=require("cors");
 const path=require("path");
 const mongoose=require("mongoose");
 const emailcr=require('email-existence');
+const mongodb=require("mongodb");
+const fileUpload =require("express-fileupload");
+const fs=require("fs");
 
 app.use(cors());
 app.use(bodyParser.json());
 app.use(express.json());
+app.use(fileUpload());
 
+const binary = mongodb.Binary;
 
 const homeRouter = require ('./routes/Home');
-const viewRouter = require ('./routes/View');
+const viewRouter = require ('./routes/Search');
 const uploadRouter = require ('./routes/Upload');
-const aboutusRouter = require ('./routes/AboutUs');
 
 app.use ('/', homeRouter);
-app.use ('/view', viewRouter);
+app.use ('/search', viewRouter);
 app.use ('/upload', uploadRouter);
-app.use ('/aboutus', aboutusRouter);
 
 const MONGO_DB_URI = process.env.URI;
 const PORT =process.env.PORT;
 const ADMIN=process.env.ADMIN;
 
 const User =require('./models/User');
-
-
-
 
 
 app.post ('/register', async function(req, res)

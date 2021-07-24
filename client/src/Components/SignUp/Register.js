@@ -1,16 +1,12 @@
 import {useState} from 'react';
-import './SignIn.css';
 import axios from 'axios';
-import ShowModal from '../Modal/modal';
 
-const Register = ({setIsRegisterPage}) => {
-  const [email, setEmail] = useState ('');
-  const [password, setPassword] = useState ('');
-  const [popup, setPopup] = useState ({
-    title: '',
-    msg: '',
-    visible: false,
-  });
+import './SignIn.css';
+
+function Register(setIsRegisterPage)
+{
+	const [email, setEmail] = useState ('');
+	const [password, setPassword] = useState ('');
 
 	function handleSignInSubmit(event)
 	{
@@ -19,18 +15,11 @@ const Register = ({setIsRegisterPage}) => {
 		console.log(User);
 		axios
 			.post ('http://localhost:3001/register',User)
-			.then (res => 
+			.then (res =>
 			{
 				console.log(res);
 				if (res.data === 'done')setIsRegisterPage (false);
-				else
-				{
-					setPopup ({
-						        title: 'Something Wrong',
-						        msg: res.data,
-						        visible: true,
-						      });
-				}
+				else {alert(res.data);}
 			})
 			.catch(error => { console.log(error);
 			});
@@ -39,12 +28,11 @@ const Register = ({setIsRegisterPage}) => {
   return (
 	<div className="container">
 		<h1 className="m-2 p-2 text-dark">Register</h1>
-         <ShowModal popup={popup} setPopup={setPopup} />
 		<form>
 			<div className="form-group">
 			<label htmlFor="email">Email</label>
-			<input 
-				className="form-control" 
+			<input
+				className="form-control"
 				name="email"
 				autoComplete="off"
 				placeholder="mail"
@@ -53,10 +41,10 @@ const Register = ({setIsRegisterPage}) => {
 				required
 			/>
 			</div>
-			<div className="form-group">	
-			<label htmlFor="password">Password</label>			
-			<input 
-				className="form-control" 
+			<div className="form-group">
+			<label htmlFor="password">Password</label>
+			<input
+				className="form-control"
 				name="password"
 				autoComplete="off"
 				placeholder="password"
@@ -65,7 +53,7 @@ const Register = ({setIsRegisterPage}) => {
 				required
 			/>
 			</div>
-			<button type="submit" className="btn btn-primary" onClick={e => handleSignInSubmit (e)}>Register</button>
+			<button type="submit" className="btn btn-primary" onClick={handleSignInSubmit}>Register</button>
 		</form>
 	</div>
   );

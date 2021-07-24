@@ -1,6 +1,8 @@
-/* #first .smashinglogo {background: url(../Components/404.png)  50% 100px no-repeat fixed;} */
-
-.smashinglogo {background: url(../Components/404.png)  50% 100px no-repeat fixed;
-    background-size: 100% cover;
-    height:600px
-  }
+.cat
+{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5%;
+    width: 50%;
+}

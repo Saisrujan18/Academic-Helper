@@ -1,38 +1,45 @@
 const express = require("express");
+const fs = require('fs');
+const fileUpload = require('express-fileupload');
+const mongodb = require('mongodb');
+const binary = mongodb.Binary;
+
+const app=express();
 const router = express.Router();
-// const User =require("../models/User");
-const File=require("../models/file");
+
+const Note=require("../models/Note");
+
 router.use(express.json());
+app.use(fileUpload())
 
 router.post('/',async (req,res)=>{
     try 
     {
-        const newFile = await new File({
-            type:req.body.type,
-            course:req.body.course,
-            year:req.body.year,
-            description:req.body.description,
-            branch:req.body.branch,
-            link:req.body.file,
-            isApproved:false,
-            uploader:req.body.mail,
+        const newNote = await new Note({
+            file: req.files===null?null:req.files.uploadedFile.data,
+            CourseNumber:req.body.CourseNumber,
+            Year:req.body.Year,
+            Branch:req.body.Branch,
+            optradio:req.body.optradio,
         });
 
-        console.log(newFile);
-        await newFile
+        if(newNote.file!==null)
+        {
+            await newNote
             .save ()
-            .then (result => console.log (result))
+            .then (result =>{ console.log (result);console.log("EEEU");})
             .catch (err => {
+                console.log("err");
                 console.log (err);
-                return res.send("fuckedup");
-                // return res.send ('User Already Exists');
+                throw err;
             });
-        res.send("done");
         }
-        catch(err){console.log (err);}
-    
-    // return res.send("don");
-    // <Redirect></Redirect>
+    }
+    catch(err){console.log (err);}
 })
 
 module.exports=router;
+
+            // console.log(req.files.uploadedFile.data);
+            // let file = { name: req.body.name, file: binary(req.files.uploadedFile.data) }
+            // insertFile(file, res)
