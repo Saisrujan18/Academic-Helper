@@ -1,3 +1,5 @@
+// THANK GOD !!!!!!!
+
 require('dotenv').config();
 
 const express = require("express");
@@ -6,7 +8,6 @@ const bodyParser = require("body-parser");
 const cors=require("cors");
 const path=require("path");
 const mongoose=require("mongoose");
-const bcrypt = require ('bcrypt');
 const emailcr=require('email-existence');
 
 app.use(cors());
@@ -25,24 +26,14 @@ app.use ('/upload', uploadRouter);
 app.use ('/aboutus', aboutusRouter);
 
 const MONGO_DB_URI = process.env.URI;
-const PORT =process.env.port;
+const PORT =process.env.PORT;
 const ADMIN=process.env.ADMIN;
 
 const User =require('./models/User');
 
-mongoose.connect (
-    MONGO_DB_URI,
-    {
-        useNewUrlParser: true,
-        useCreateIndex: true,
-        useUnifiedTopology: true,
-        useFindAndModify: false,
-    },
-    () => {
-        console.log ('connected to mongo_db');
-        app.listen (PORT, () => console.log (`server running on ${PORT}`));
-    }
-);
+
+
+
 
 app.post ('/register', async function(req, res)
     {
@@ -51,7 +42,7 @@ app.post ('/register', async function(req, res)
             let correctmail=true;
             let isAdmin = false;
             const email = req.body.email;
-            const password= await bcrypt.hash(req.body.password,10);
+            const password= req.body.password;
             
             emailcr.check(email, function(err,resp){correctmail=resp;});
             
@@ -69,10 +60,11 @@ app.post ('/register', async function(req, res)
                 isAdmin: isAdmin,
                 isBlocked: false,
             });
-            console.log(newUser);
+            // console.log(newUser);
+
             await newUser
                 .save ()
-                .then (result => console.log (result))
+                .then (result => {console.log (result); console.log("DONE");})
                 .catch (err => {
                     console.log (err);
                     return res.send ('User Already Exists');
@@ -87,10 +79,18 @@ app.post ('/login', async function(req, res)
     {
         try{
             const {email, password} = req.body;
-            const user = await User.find({emailId: email,});
+            console.log(email);
+            // const user = await User.find({emailId: email,});
+            const user =await User.find({},function(err,result){
+                if (err) {console.log(err);throw err;}
+                console.log(result);
+            });
+            console.log(user);
             if (user.length)
             {
-                if (await bcrypt.compare (password, user[0].password)) 
+                console.log(user);
+                console.log("user foiunf");
+                if (password === user[0].password) 
                 {
                     res.send ({
                     msg: 'User Found',
@@ -115,6 +115,7 @@ app.post ('/login', async function(req, res)
             } 
             else 
             {
+                console.log("NO");
                 res.send ({
                     msg: 'Invalid Email ID',
                     found: false,
@@ -122,13 +123,30 @@ app.post ('/login', async function(req, res)
                 });
             }
         }
+
         catch (error) 
         {
+            console.log("ERROR");
             res.status (404).send ({
             msg: 'some error',
             found: false,
             user: null,
             });
         }
+    }
+);
+
+mongoose.connect (
+    MONGO_DB_URI,
+    {
+        useNewUrlParser: true,
+        useCreateIndex: true,
+        useUnifiedTopology: true,
+        useFindAndModify: false,
+    },
+    () => {
+        console.log(MONGO_DB_URI);
+        console.log ('connected to mongo_db');
+        app.listen (PORT, () => console.log (`server running on ${PORT}`));
     }
 );

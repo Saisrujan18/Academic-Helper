@@ -3,39 +3,35 @@ import {useState, useEffect} from 'react';
 import './SignIn.css';
 import {Redirect} from 'react-router-dom';
 import axios from 'axios';
-import ShowModal from '../Modal/modal';
 
 function Login()
 {
-
-	const [popup, setPopup] = useState ({
-		title: '',
-		msg: '',
-		visible: false,
-	});
-	
 	const [email, setEmail] = useState ('');
 	const [password, setPassword] = useState ('');
 	const [auth, setAuth] = useState (false);
 
+
 	function handleSignInSubmit(event)
 	{
 		event.preventDefault ();
-
-		axios.post ('http://localhost:3001/login ', {email, password})
+		console.log({email,password});
+		console.log("Login clicked");
+		axios.post ('http://localhost:3001/login',{email, password})
 			.then(res => 
 				{
-					if (res.data.found === true) 
+					console.log("contacted /login  in 3001");
+					if(res.data.found === true) 
 					{
-						console.log (res.data.user);
 						sessionStorage.setItem ('user', JSON.stringify (res.data.user));
 						setAuth (true);
 					}
-					else {setPopup ({title: 'Something Wrong',msg: res.data.msg,visible: true});}
+					else {alert(res.data.msg);}
 				}
 			)
 			.catch(err=>{console.log(err);})
 	};
+
+
 
 	if (auth || sessionStorage.getItem ('user')) return <Redirect to="/" />;
 	return (
@@ -68,7 +64,7 @@ function Login()
 				</div>
 				<button 
 					className="btn btn-primary" 
-					onClick={e => handleSignInSubmit (e)}
+					onClick={handleSignInSubmit}
 					type="submit"
 				>Login</button>
 			</form>
