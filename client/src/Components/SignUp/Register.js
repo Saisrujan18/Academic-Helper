@@ -32,34 +32,38 @@ function Register()
 	};
 	if(done===true)return <Redirect to="/" />
   return (
-	<div className="container">
-		<h1 className="m-2 p-2 text-dark">Register</h1>
+	<div className="container jumbotron shadow-sm all">
+		<h2 className="headr text-dark">Register</h2>
 		<form>
+			<br></br>
 			<div className="form-group">
-			<label htmlFor="email">Email</label>
+			{/* <label htmlFor="email">Email</label> */}
 			<input
 				className="form-control"
 				name="email"
 				autoComplete="off"
-				placeholder="mail"
+				placeholder="Enter your mail"
 				onChange={e => setEmail (e.target.value)}
 				value={email}
 				required
 			/>
 			</div>
 			<div className="form-group">
-			<label htmlFor="password">Password</label>
+			{/* <label htmlFor="password">Password</label> */}
+			<br></br>
 			<input
 				className="form-control"
 				name="password"
 				autoComplete="off"
-				placeholder="password"
+				placeholder="Enter your password"
 				onChange={e => setPassword (e.target.value)}
 				value={password}
 				required
 			/>
 			</div>
-			<button type="submit" className="btn btn-primary" onClick={handleSignInSubmit}>Register</button>
+			<br></br>
+
+			<button type="submit" className="btn btn-light x" onClick={handleSignInSubmit}>Register</button>
 		</form>
 	</div>
   );

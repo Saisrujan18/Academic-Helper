@@ -1,0 +1,9 @@
+.alle
+{
+    display: flex;
+    flex-direction: column;
+}
+.title
+{
+    margin-left: 2vh;
+}

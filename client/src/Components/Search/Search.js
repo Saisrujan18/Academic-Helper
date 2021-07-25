@@ -6,8 +6,6 @@ import TableHeader from "./TableHeader";
 
 import '../Search/Search.css'; 
 
-// import '../'
-
 function Search()
 {
     const [CourseNumber,setCourse]=useState("");
@@ -100,7 +98,7 @@ function Search()
     {
         if(fetched===true)
         {
-            return (<button className="btn btn-light">Download File</button>);
+            return (<a href={pdf} download><button className="btn btn-light">Download File</button></a>);
         }
         else
         {
@@ -177,21 +175,6 @@ function Search()
         </div>
         </div>
     );
-
-//    Change(event)
-//     {
-//         event.preventDefault();
-//         const file="no";
-//         axios.post("http://localhost:3001/search",{file})
-//             .then(res=>{console.log(res);})
-//             .catch(err=>console.log(err))
-//     }
-    // return(
-    //     <div>
-    //         <a href={pdf} download onClick={Change}>download</a>
-    //         <button onClick={Change}>Fetch</button>
-    //     </div>
-    // );
 }
 
 export default Search;

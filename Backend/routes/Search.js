@@ -62,7 +62,7 @@ router.post('/fetch',async(req,res)=>{
                 console.log(doc);
                 let buff=doc.file.buffer;
                 console.log(buff);
-                fs.writeFile("download.pdf",conv(buff),err=>{
+                fs.writeFile("../client/src/Components/Search/download.pdf",conv(buff),err=>{
                     if(err)
                     {
                         console.log(err);

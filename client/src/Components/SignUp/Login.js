@@ -14,7 +14,6 @@ function Login()
 	function handleSignInSubmit(event)
 	{
 		event.preventDefault ();
-		// console.log({email,password});
 		console.log("Login clicked");
 		
 		axios
@@ -24,8 +23,6 @@ function Login()
 					console.log("contacted /login  in 3001");
 					if(res.data.found === true) 
 					{
-						// var isAdmin=false;
-						// if(email==="cs19b043@iittp.ac.in"){isAdmin=true;}
 						sessionStorage.setItem ('user', JSON.stringify(res.data.user));
 						setAuth (true);
 					}
@@ -39,42 +36,46 @@ function Login()
 
 	if (auth || sessionStorage.getItem ('user')) return <Redirect to="/" />;
 	return (
-		<div className="container">
-			<h1 className="m-2 p-2 text-dark">Login</h1>
+		<div className="container jumbotron shadow-sm all">
+			<h2 className="head text-dark">Login</h2>
 			<form>
 				<div className="form-group">
-				<label htmlFor="email">Email</label>
+				{/* <label htmlFor="email">Email</label> */}
+				<br></br>
 				<input 
 					className="form-control" 
 					name="email"
 					autoComplete="off"
-					placeholder="mail"
+					placeholder="Enter your mail id"
 					onChange={e => setEmail (e.target.value)}
 					value={email}
 					required
 				/>
 				</div>
 				<div className="form-group">				
-				<label htmlFor="password">Password</label>
+				{/* <label htmlFor="password">Password</label> */}
+				<br></br>
 				<input 
 					className="form-control" 
 					name="password"
 					autoComplete="off"
-					placeholder="password"
+					placeholder="Enter your password"
 					onChange={e => setPassword (e.target.value)}
 					value={password}
 					required
 				/>
 				</div>
+				<br></br>
 				<button 
-					className="btn btn-primary" 
+					className="btn btn-light x" 
 					onClick={handleSignInSubmit}
 					type="submit"
 				>Login</button>
-			</form>
+			</form> 
+			
 		</div>
-		
-	);
-};
+		);
+	};
 
-export default Login;
+	export default Login;
+	

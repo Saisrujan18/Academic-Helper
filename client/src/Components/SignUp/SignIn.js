@@ -18,12 +18,12 @@ function SignIn()
 		
 		<div className="m-5 pa-3">
 			<Login />
-			<button className="btn btn-primary m-5" onClick={() => ChangeR(true)}>Go To Register</button>
+			<button className="btn btn-outline-secondary m-5" onClick={() => ChangeR(true)}>Go To Register</button>
 		</div>
 		: 
 		<div className="m-5 pa-3">
 			<Register/>
-			<button className="btn btn-primary m-5" onClick={() => ChangeR (false)}>Go To Login</button>
+			<button className="btn btn-outline-secondary m-5" onClick={() => ChangeR (false)}>Go To Login</button>
 		</div>
 		}
 

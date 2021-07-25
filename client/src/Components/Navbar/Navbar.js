@@ -1,6 +1,6 @@
+/* eslint-disable no-unused-vars */
 import './Navbar.css';
 import {Link} from 'react-router-dom';
-import {Navbar, Nav} from 'react-bootstrap';
 
 import Logout from '../SignUp/LogOut';
 
@@ -10,25 +10,21 @@ const NavBar = () => {
     console.log(user);
     return (
         <div>
-        <Navbar collapseOnSelect expand="md" bg="dark" variant="dark">
-
-            <Link className="navbar-brand" to="/">NOTE</Link>
-            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-            <Navbar.Collapse id="responsive-navbar-nav">
-            
-            <Nav className="Navbar" style={{width: '85%'}}>
-                <Link to="/search">Search</Link>
-                <Link to="/upload">Upload</Link>
-
-            </Nav>
-            <Logout />
-
-            {/* <Navbar.Text style={{width: '18%'}}>
-                {'hello, '}
-            </Navbar.Text> */}
-
-            </Navbar.Collapse>
-        </Navbar>
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark alle">
+                <Link className="navbar-brand title" to="/">NOET</Link>
+                <span class="navbar-text">Help your Friends !</span>
+                <div  id="navbarText">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <Link className="nav-link" to="/search">Search</Link>
+                        </li>
+                        <li class="nav-item">
+                            <Link class="nav-link" to="/upload">Upload</Link>
+                        </li>
+                    </ul>
+                </div>
+                <Logout/>
+            </nav>
         </div>
     );
 };

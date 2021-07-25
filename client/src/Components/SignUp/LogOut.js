@@ -3,7 +3,7 @@ const LogOut = () => {
     <div>
 
       <button
-        className="btn btn-danger logout"
+        className="btn btn-dark logout"
         onClick={() => {
           sessionStorage.removeItem ('user');
           window.location.reload ();
