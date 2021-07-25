@@ -6,6 +6,8 @@ import TableHeader from "./TableHeader";
 
 import '../Search/Search.css'; 
 
+// import '../'
+
 function Search()
 {
     const [CourseNumber,setCourse]=useState("");
@@ -28,7 +30,7 @@ function Search()
                 <td className="table2">{props.Branch}</td>
                 <td className="table3">{props.Year}</td>
                 <td className="table4">{props.optradio}</td>
-                <td className="table5"><button id={props._id} onClick={fetch} className="btn btn-dark">Fetch</button></td>
+                <td className="table5"><button id={props.id} onClick={fetch} className="btn btn-dark">Fetch</button></td>
             </tr>
             </table>
         );
@@ -40,7 +42,7 @@ function Search()
         setFetch(true);
         const id=e.target.id;
         console.log(id);
-        axios.post("http://localhost:3001/search/fetch",id)
+        axios.post("http://localhost:3001/search/fetch",{id})
             .then(res=>{alert("fetched");})
             .catch(err=>console.log(err))
     }
@@ -94,15 +96,15 @@ function Search()
             setO(!val);
         }
     }
-    function DOWNLOAD(e)
+    function Download()
     {
         if(fetched===true)
         {
-            return (<button className="btn btn-success">Download File</button>);
+            return (<button className="btn btn-light">Download File</button>);
         }
         else
         {
-            return (<div><h1>CANT DOWNLOAD</h1></div>);
+            return (<div></div>);
         }
     }
 
@@ -167,11 +169,12 @@ function Search()
             <br></br>
 
         </form>
+        {Download()}
+        <br></br>
         <div>
             <TableHeader/>
             {show(files)}
         </div>
-        {DOWNLOAD}
         </div>
     );
 

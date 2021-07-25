@@ -44,21 +44,6 @@ router.post('/',async (req,res)=>{
                     res.send(sender);
                 }
                 console.log(doc);
-        //         let buff=doc[0].file.buffer;
-        //         console.log(buff);
-        //         fs.writeFile("download.pdf",conv(buff),err=>{
-        //             if(err)
-        //             {
-        //                 console.log(err);
-        //                 throw err;
-        //             }
-        //             else
-        //             {
-        //                 console.log("EEEU");
-        //             }
-        //         });
-        //         // let buffer = doc[0].file.buffer
-        //         // fs.writeFileSync('uploadedImage.jpg', buffer)
             }
         })
     }
@@ -69,7 +54,28 @@ router.post('/fetch',async(req,res)=>{
 
     try
     {
-        console.log(req.body);
+        const ide=req.body.id;
+        const answer=Note.findById(ide,function(err,doc){
+            if(err){console.log(err);throw err;}
+            else 
+            {
+                console.log(doc);
+                let buff=doc.file.buffer;
+                console.log(buff);
+                fs.writeFile("download.pdf",conv(buff),err=>{
+                    if(err)
+                    {
+                        console.log(err);
+                        throw err;
+                    }
+                    else
+                    {
+                        console.log("EEEU");
+                    }
+                });
+            }
+
+        });
     }
     catch(err)
     {
