@@ -65,4 +65,18 @@ router.post('/',async (req,res)=>{
     catch(err){console.log(err);}
 })
 
+router.post('/fetch',async(req,res)=>{
+
+    try
+    {
+        console.log(req.body);
+    }
+    catch(err)
+    {
+        console.log(err);
+    }
+
+});
+
+
 module.exports=router;
