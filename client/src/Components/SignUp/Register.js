@@ -1,30 +1,36 @@
 import {useState} from 'react';
+import { Redirect } from 'react-router';
 import axios from 'axios';
 
 import './SignIn.css';
 
-function Register(setIsRegisterPage)
+function Register()
 {
 	const [email, setEmail] = useState ('');
 	const [password, setPassword] = useState ('');
+	const [done,changeD]=useState(false);
 
 	function handleSignInSubmit(event)
 	{
 		event.preventDefault ();
 		const User={email,password};
-		console.log(User);
+		// console.log(User);
 		axios
 			.post ('http://localhost:3001/register',User)
 			.then (res =>
 			{
-				console.log(res);
-				if (res.data === 'done')setIsRegisterPage (false);
+				// console.log(res);
+				if (res.data === 'done')
+				{
+					alert("Registration Done !");
+					changeD(true);
+				}
 				else {alert(res.data);}
 			})
 			.catch(error => { console.log(error);
 			});
 	};
-
+	if(done===true)return <Redirect to="/" />
   return (
 	<div className="container">
 		<h1 className="m-2 p-2 text-dark">Register</h1>

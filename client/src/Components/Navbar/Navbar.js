@@ -6,8 +6,8 @@ import Logout from '../SignUp/LogOut';
 
 const NavBar = () => {
   
-    // const user= JSON.parse (sessionStorage.getItem ('user'));
-
+    const user= JSON.parse (sessionStorage.getItem ('user'));
+    console.log(user);
     return (
         <div>
         <Navbar collapseOnSelect expand="md" bg="dark" variant="dark">

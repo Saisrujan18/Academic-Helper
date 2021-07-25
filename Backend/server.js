@@ -81,11 +81,11 @@ app.post ('/login', async function(req, res)
             const {email, password} = req.body;
             console.log(email);
             // const user = await User.find({emailId: email,});
-            const user =await User.find({},function(err,result){
+            const user =await User.find({emailId: email,},function(err,result){
                 if (err) {console.log(err);throw err;}
                 console.log(result);
             });
-            console.log(user);
+            // console.log(user);
             if (user.length)
             {
                 console.log(user);

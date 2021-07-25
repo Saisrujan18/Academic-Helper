@@ -23,8 +23,9 @@ router.post('/',async (req,res)=>{
             optradio:req.body.optradio,
         });
 
-        if(newNote.file!==null)
+        if(newNote.file!==null && newNote.CourseNumber!=="")
         {
+            console.log("UPloaded");
             await newNote
             .save ()
             .then (result =>{ console.log (result);console.log("EEEU");})
@@ -33,6 +34,10 @@ router.post('/',async (req,res)=>{
                 console.log (err);
                 throw err;
             });
+        }
+        else
+        {
+            console.log("Didnt upload");
         }
     }
     catch(err){console.log (err);}

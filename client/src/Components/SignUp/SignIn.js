@@ -22,7 +22,7 @@ function SignIn()
 		</div>
 		: 
 		<div className="m-5 pa-3">
-			<Register ChangeR={ChangeR} />
+			<Register/>
 			<button className="btn btn-primary m-5" onClick={() => ChangeR (false)}>Go To Login</button>
 		</div>
 		}

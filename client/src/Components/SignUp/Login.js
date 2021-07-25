@@ -24,7 +24,9 @@ function Login()
 					console.log("contacted /login  in 3001");
 					if(res.data.found === true) 
 					{
-						sessionStorage.setItem ('user', JSON.stringify (res.data.user));
+						// var isAdmin=false;
+						// if(email==="cs19b043@iittp.ac.in"){isAdmin=true;}
+						sessionStorage.setItem ('user', JSON.stringify(res.data.user));
 						setAuth (true);
 					}
 					else {alert(res.data.msg);}
