@@ -1,39 +1,34 @@
-import {useState} from 'react';
-import './SignIn.css';
+/* eslint-disable no-unused-vars */
+import react,{useState} from 'react';
+
 import Login from './Login';
 import Register from './Register';
 
+import './SignIn.css';
 
 function SignIn()
 {
-  const [isRegisterPage, setIsRegisterPage] = useState (false);
+	const [Reg,ChangeR]=useState (false);
 
-  return (
-    
-	<div style={{display: 'flex',justifyContent: 'center',}}>
-      
-	  {isRegisterPage === false
-        ?<div className="m-5 pa-3">
-            <Login />
-            <button
-              className="btn btn-primary m-5"
-              onClick={() => setIsRegisterPage (true)}
-            >
-			Go To Register
-            </button>
-          </div>
-        : <div className="m-5 pa-3">
-            <Register setIsRegisterPage={setIsRegisterPage} />
-            <button
-              className="btn btn-primary m-5"
-              onClick={() => setIsRegisterPage (false)}
-            >
-            Go To Login!!!
-            </button>
-          </div>}
+	return (
+		
+		<div style={{display: 'flex',justifyContent: 'center',}}>
+		
+		{Reg===false?
+		
+		<div className="m-5 pa-3">
+			<Login />
+			<button className="btn btn-outline-secondary m-5" onClick={() => ChangeR(true)}>Go To Register</button>
+		</div>
+		: 
+		<div className="m-5 pa-3">
+			<Register/>
+			<button className="btn btn-outline-secondary m-5" onClick={() => ChangeR (false)}>Go To Login</button>
+		</div>
+		}
 
-    </div>
-  );
+		</div>
+	);
 }
 
 export default SignIn;

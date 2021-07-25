@@ -1,0 +1,17 @@
+.type
+{
+    display: flex;
+    flex-direction: row;
+    padding-top: 2%;
+}
+.course
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.all
+{
+    display: flex;
+    flex-direction: column;
+}

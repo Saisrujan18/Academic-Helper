@@ -1,3 +1,5 @@
+// THANK GOD !!!!!!!
+
 require('dotenv').config();
 
 const express = require("express");
@@ -6,43 +8,32 @@ const bodyParser = require("body-parser");
 const cors=require("cors");
 const path=require("path");
 const mongoose=require("mongoose");
-const bcrypt = require ('bcrypt');
 const emailcr=require('email-existence');
+const mongodb=require("mongodb");
+const fileUpload =require("express-fileupload");
+const fs=require("fs");
 
 app.use(cors());
 app.use(bodyParser.json());
 app.use(express.json());
+app.use(fileUpload());
 
+const binary = mongodb.Binary;
 
 const homeRouter = require ('./routes/Home');
-const viewRouter = require ('./routes/View');
+const viewRouter = require ('./routes/Search');
 const uploadRouter = require ('./routes/Upload');
-const aboutusRouter = require ('./routes/AboutUs');
 
 app.use ('/', homeRouter);
-app.use ('/view', viewRouter);
+app.use ('/search', viewRouter);
 app.use ('/upload', uploadRouter);
-app.use ('/aboutus', aboutusRouter);
 
 const MONGO_DB_URI = process.env.URI;
-const PORT =process.env.port;
+const PORT =process.env.PORT;
 const ADMIN=process.env.ADMIN;
 
 const User =require('./models/User');
 
-mongoose.connect (
-    MONGO_DB_URI,
-    {
-        useNewUrlParser: true,
-        useCreateIndex: true,
-        useUnifiedTopology: true,
-        useFindAndModify: false,
-    },
-    () => {
-        console.log ('connected to mongo_db');
-        app.listen (PORT, () => console.log (`server running`));
-    }
-);
 
 app.post ('/register', async function(req, res)
     {
@@ -51,7 +42,7 @@ app.post ('/register', async function(req, res)
             let correctmail=true;
             let isAdmin = false;
             const email = req.body.email;
-            const password= await bcrypt.hash(req.body.password,10);
+            const password= req.body.password;
             
             emailcr.check(email, function(err,resp){correctmail=resp;});
             
@@ -69,15 +60,16 @@ app.post ('/register', async function(req, res)
                 isAdmin: isAdmin,
                 isBlocked: false,
             });
+            // console.log(newUser);
 
             await newUser
                 .save ()
-                .then (result => console.log (result))
+                .then (result => {console.log (result); console.log("DONE");})
                 .catch (err => {
                     console.log (err);
                     return res.send ('User Already Exists');
                 });
-            res.send("done");
+            return res.send("done");
         }
         catch(err){console.log (err);}
     }
@@ -87,10 +79,18 @@ app.post ('/login', async function(req, res)
     {
         try{
             const {email, password} = req.body;
-            const user = await User.find({emailId: email,});
+            console.log(email);
+            // const user = await User.find({emailId: email,});
+            const user =await User.find({emailId: email,},function(err,result){
+                if (err) {console.log(err);throw err;}
+                console.log(result);
+            });
+            // console.log(user);
             if (user.length)
             {
-                if (await bcrypt.compare (password, user[0].password)) 
+                console.log(user);
+                console.log("user foiunf");
+                if (password === user[0].password) 
                 {
                     res.send ({
                     msg: 'User Found',
@@ -115,6 +115,7 @@ app.post ('/login', async function(req, res)
             } 
             else 
             {
+                console.log("NO");
                 res.send ({
                     msg: 'Invalid Email ID',
                     found: false,
@@ -122,13 +123,30 @@ app.post ('/login', async function(req, res)
                 });
             }
         }
+
         catch (error) 
         {
+            console.log("ERROR");
             res.status (404).send ({
             msg: 'some error',
             found: false,
             user: null,
             });
         }
+    }
+);
+
+mongoose.connect (
+    MONGO_DB_URI,
+    {
+        useNewUrlParser: true,
+        useCreateIndex: true,
+        useUnifiedTopology: true,
+        useFindAndModify: false,
+    },
+    () => {
+        console.log(MONGO_DB_URI);
+        console.log ('connected to mongo_db');
+        app.listen (PORT, () => console.log (`server running on ${PORT}`));
     }
 );
