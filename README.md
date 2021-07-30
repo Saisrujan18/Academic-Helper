@@ -1,2 +1,2 @@
 # NOTE
-Upload your assignments and help others :)
+Upload your assignments and help your friends ;)
