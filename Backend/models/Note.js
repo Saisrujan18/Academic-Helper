@@ -6,7 +6,7 @@ const NoteSchema = new mongoose.Schema ({
     CourseNumber: {type: String, required: true},
     Year: {type: Number, default: 3, required: true},
     Branch: {type: String,default:"Computer Science", required: true},
-    file: {type: Buffer,required:true,unique:true},
+    file: {type: Buffer,required:true},
     isApproved:{type:Boolean,default:false},
 });
 

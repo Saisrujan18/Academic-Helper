@@ -5,7 +5,7 @@ function PrivateRoute({children, ...rest})
     // console.log(children,...rest);
     return(
         <Route {...rest} render={() =>{
-            return sessionStorage.getItem("user")==null? <Redirect to="/login"/>:children
+            return sessionStorage.getItem("user")==null?<Redirect to="/login"/>:children
         }}/>
     )
 }

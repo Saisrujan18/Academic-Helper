@@ -60,13 +60,12 @@ app.post ('/register', async function(req, res)
                 isAdmin: isAdmin,
                 isBlocked: false,
             });
-            // console.log(newUser);
-
+            
             await newUser
                 .save ()
-                .then (result => {console.log (result); console.log("DONE");})
+                .then (result => {console.log (result); console.log("Registered");})
                 .catch (err => {
-                    console.log (err);
+                    console.log(err);
                     return res.send ('User Already Exists');
                 });
             return res.send("done");
@@ -80,16 +79,15 @@ app.post ('/login', async function(req, res)
         try{
             const {email, password} = req.body;
             console.log(email);
-            // const user = await User.find({emailId: email,});
             const user =await User.find({emailId: email,},function(err,result){
-                if (err) {console.log(err);throw err;}
+                if (err) {throw err;}
                 console.log(result);
             });
-            // console.log(user);
+
             if (user.length)
             {
                 console.log(user);
-                console.log("user foiunf");
+                console.log("user found");
                 if (password === user[0].password) 
                 {
                     res.send ({
@@ -115,7 +113,7 @@ app.post ('/login', async function(req, res)
             } 
             else 
             {
-                console.log("NO");
+                console.log("entered an invalid emailid");
                 res.send ({
                     msg: 'Invalid Email ID',
                     found: false,

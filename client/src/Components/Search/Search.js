@@ -105,7 +105,11 @@ function Search()
             return (<div></div>);
         }
     }
-
+    function tab()
+    {
+        if(files.length!==0){return(<TableHeader/>);}
+        else return (<div></div>);
+    }
     return(
 
         <div className=" jumbotron container all">
@@ -170,7 +174,7 @@ function Search()
         {Download()}
         <br></br>
         <div>
-            <TableHeader/>
+            {tab()}
             {show(files)}
         </div>
         </div>
