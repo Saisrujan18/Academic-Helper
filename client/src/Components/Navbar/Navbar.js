@@ -11,7 +11,7 @@ const NavBar = () => {
     return (
         <div>
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark alle">
-                <Link className="navbar-brand title" to="/">NOET</Link>
+                <Link className="navbar-brand title" to="/">Academic Helper</Link>
                 <span class="navbar-text">Help your Friends !</span>
                 <div  id="navbarText">
                     <ul class="navbar-nav mr-auto">
